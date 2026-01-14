@@ -1,32 +1,32 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterSelect : MonoBehaviour
 {
-    public string characterID;
-    public GameObject selectionCircle;
+    public GameObject[] characters;
+    public int selectedCharacter = 0;
 
-    private static CharacterSelect currentlySelected;
-
-    void Start()
+    public void NextCharacter()
     {
-        selectionCircle.SetActive(false);
+        characters[selectedCharacter].SetActive(false);
+        selectedCharacter = (selectedCharacter + 1) % characters.Length;
+        characters[selectedCharacter].SetActive(true);
     }
 
-    void OnMouseDown()
+    public void PreviousCharacter()
     {
-        // Turn off previous selection
-        if (currentlySelected != null)
+        characters[selectedCharacter].SetActive(false);
+        selectedCharacter--;
+        if (selectedCharacter < 0)
         {
-            currentlySelected.selectionCircle.SetActive(false);
+            selectedCharacter += characters.Length;
         }
+        characters[selectedCharacter].SetActive(true);
+    }
 
-        // Select this one
-        currentlySelected = this;
-        selectionCircle.SetActive(true);
-
-        PlayerPrefs.SetString("SelectedCharacter", characterID);
-        PlayerPrefs.Save();
-
-        Debug.Log("Selected: " + characterID);
+    public void StartGame()
+    {
+        PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 }
