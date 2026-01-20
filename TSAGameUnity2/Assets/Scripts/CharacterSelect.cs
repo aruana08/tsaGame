@@ -3,30 +3,54 @@ using UnityEngine.SceneManagement;
 
 public class CharacterSelect : MonoBehaviour
 {
-    public GameObject[] characters;
-    public int selectedCharacter = 0;
+    [Header("Characters")]
+    public GameObject player0;
+    public GameObject player1;
 
-    public void NextCharacter()
+    private SpriteRenderer r0;
+    private SpriteRenderer r1;
+
+    private Color normal = Color.white;
+    private Color selected = Color.yellow;
+
+    void Start()
     {
-        characters[selectedCharacter].SetActive(false);
-        selectedCharacter = (selectedCharacter + 1) % characters.Length;
-        characters[selectedCharacter].SetActive(true);
+        r0 = player0.GetComponent<SpriteRenderer>();
+        r1 = player1.GetComponent<SpriteRenderer>();
     }
 
-    public void PreviousCharacter()
+    void Update()
     {
-        characters[selectedCharacter].SetActive(false);
-        selectedCharacter--;
-        if (selectedCharacter < 0)
+        if (Input.GetMouseButtonDown(0))
         {
-            selectedCharacter += characters.Length;
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+            if (!hit) return;
+
+            if (hit.collider.gameObject == player0)
+                Select(1);
+            else if (hit.collider.gameObject == player1)
+                Select(2);
         }
-        characters[selectedCharacter].SetActive(true);
+    }
+
+    void Select(int id)
+    {
+        CharacterSelection.selectedCharacter = id;
+
+        r0.color = (id == 1) ? selected : normal;
+        r1.color = (id == 2) ? selected : normal;
     }
 
     public void StartGame()
     {
-        PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        if (CharacterSelection.selectedCharacter == 0)
+        {
+            Debug.Log("Select a character first!");
+            return;
+        }
+
+        SceneManager.LoadScene("03_MainMap");
     }
 }
