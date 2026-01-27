@@ -17,6 +17,11 @@ public class CameraFollow : MonoBehaviour
             smoothSpeed * Time.deltaTime
         );
 
-        transform.position = smoothedPosition;
+        // FORCE Z to -10 so the scene does not disappear
+        transform.position = new Vector3(
+            smoothedPosition.x,
+            smoothedPosition.y,
+            -10f
+        );
     }
 }
