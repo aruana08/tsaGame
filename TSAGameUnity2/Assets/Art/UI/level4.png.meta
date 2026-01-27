@@ -44,11 +44,11 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
-  spriteMeshType: 1
+  spriteExtrude: 8
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -288,8 +288,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9b42749172b2424c957658e65d60c18
-      internalID: -1092181431
+      spriteID: 09013108b6c405345a94c747c75fda17
+      internalID: 1046344814
       vertices: []
       indices: 
       edges: []
@@ -310,8 +310,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44dc1ff48082f6145b2a6f801754d656
-      internalID: -1088039084
+      spriteID: 077cac1410cf68945bf28f4034992a94
+      internalID: -1001233813
       vertices: []
       indices: 
       edges: []
@@ -332,8 +332,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 508fc1e1fe8e7e942a28b7495120d6ec
-      internalID: -698054543
+      spriteID: 282654b688507b042a555875105466f3
+      internalID: -1019543895
       vertices: []
       indices: 
       edges: []
@@ -354,8 +354,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a89ca46310c875a4883f26604f34c9fa
-      internalID: -1696741609
+      spriteID: b995210c768cbb54799be697ab6556e4
+      internalID: -995258823
       vertices: []
       indices: 
       edges: []
@@ -376,8 +376,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b71747ea74a36d94294973430c62c3ed
-      internalID: -1109380542
+      spriteID: a4672b59a43c7f74a8d071818de5f3ba
+      internalID: 641594658
       vertices: []
       indices: 
       edges: []
@@ -400,17 +400,17 @@ TextureImporter:
     nameFileIdTable:
       level4_0: -859329726
       level4_1: -88669504
-      level4_10: -698054543
-      level4_11: -1696741609
-      level4_12: -1109380542
+      level4_10: -1019543895
+      level4_11: -995258823
+      level4_12: 641594658
       level4_2: 54949569
       level4_3: 1020529303
       level4_4: -1857213074
       level4_5: -1938882905
       level4_6: 441397342
       level4_7: -316660935
-      level4_8: -1092181431
-      level4_9: -1088039084
+      level4_8: 1046344814
+      level4_9: -1001233813
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
