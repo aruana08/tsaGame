@@ -155,11 +155,12 @@ public class PuzzleManager : MonoBehaviour
         if (solvedText != null)
             solvedText.SetActive(true);
 
-        
-        Instantiate(
-            sapphirePrefab,
-            new Vector3(6f, 1f, 0f),
-            Quaternion.identity
+
+    GameObject gem = Instantiate(
+        sapphirePrefab,
+        new Vector3(6f, 1f, 0f),
+        Quaternion.identity
         );
+
     }
 }
