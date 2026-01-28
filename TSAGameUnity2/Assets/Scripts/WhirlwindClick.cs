@@ -6,6 +6,6 @@ public class WhirlwindClick : MonoBehaviour
 
     void OnMouseDown()
     {
-        tornadoManager.TornadoClicked();
+        tornadoManager.OnTornadoClicked();
     }
 }
