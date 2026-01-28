@@ -8,6 +8,10 @@ public class GameProgress : MonoBehaviour
     public bool forestStone;
     public bool airStone;
     public bool fireStone;
+    //public bool memoryStone; // tracks Memory Puzzle emerald
+
+
+    public int emeraldsCollected = 0; // new
 
     void Awake()
     {
@@ -20,5 +24,11 @@ public class GameProgress : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void AddEmerald()
+    {
+        emeraldsCollected++;
+        Debug.Log("Emerald collected! Total: " + emeraldsCollected);
     }
 }

@@ -5,25 +5,31 @@ using TMPro;
 
 public class MemoryPuzzleManager : MonoBehaviour
 {
+    [Header("Tiles & Sequence")]
     public MemoryTile[] tiles;
     public Transform monkey;
     public Animator monkeyAnimator;
 
-    public GameObject emeraldPrefab;
-    public Transform emeraldSpawnPoint;
+    [Header("Gem & UI")]
+    public GameObject emeraldPrefab;           // Forest Stone prefab
+    public Transform emeraldSpawnPoint;        // Where gem spawns
+    public TextMeshProUGUI messageText;        // Message text for success/fail
 
-    public TextMeshProUGUI messageText;
+    [Header("Game Settings")]
+    public int maxRounds = 4;
 
     private List<int> sequence = new List<int>();
     private int inputIndex = 0;
+    private int round = 0;
     private bool playerTurn = false;
 
-    private int round = 0;
-    public int maxRounds = 4;
+    private bool puzzleSolved = false;
 
     void Start()
     {
-        messageText.gameObject.SetActive(false);
+        if (messageText != null)
+            messageText.gameObject.SetActive(false);
+
         StartNextRound();
     }
 
@@ -37,7 +43,7 @@ public class MemoryPuzzleManager : MonoBehaviour
         StartCoroutine(ShowSequence());
     }
 
-    // ALWAYS add exactly 2 new tiles
+    // Add exactly 2 new tiles per round
     void AddTilesForRound()
     {
         for (int i = 0; i < 2; i++)
@@ -71,7 +77,7 @@ public class MemoryPuzzleManager : MonoBehaviour
 
     public void PlayerClickedTile(int tileID)
     {
-        if (!playerTurn) return;
+        if (!playerTurn || puzzleSolved) return;
 
         MemoryTile clickedTile = GetTileByID(tileID);
 
@@ -110,20 +116,39 @@ public class MemoryPuzzleManager : MonoBehaviour
         sequence.Clear();
         round = 0;
 
-        messageText.gameObject.SetActive(true);
-        messageText.text = "FAILED";
+        if (messageText != null)
+        {
+            messageText.gameObject.SetActive(true);
+            messageText.text = "FAILED";
+        }
     }
 
     void Win()
     {
         playerTurn = false;
+        puzzleSolved = true;
 
-        messageText.gameObject.SetActive(true);
-        messageText.text = "PUZZLE COMPLETE";
-
-        if (emeraldPrefab != null)
+        if (messageText != null)
         {
-            Instantiate(emeraldPrefab, emeraldSpawnPoint.position, Quaternion.identity);
+            messageText.gameObject.SetActive(true);
+            messageText.text = "PUZZLE COMPLETE";
         }
+
+        SpawnForestStone();
+    }
+
+    void SpawnForestStone()
+    {
+        if (emeraldPrefab == null || emeraldSpawnPoint == null)
+            return;
+
+        GameObject forestStone = Instantiate(emeraldPrefab, emeraldSpawnPoint.position, Quaternion.identity);
+
+        // Add GemPickup script if not already on prefab
+        GemPickup gem = forestStone.GetComponent<GemPickup>();
+        if (gem == null)
+            gem = forestStone.AddComponent<GemPickup>();
+
+        gem.gemType = GemPickup.GemType.Forest;
     }
 }

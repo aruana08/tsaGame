@@ -6,14 +6,9 @@ public class GemPickup : MonoBehaviour
     public GemType gemType;
 
     void OnMouseDown()
+{
+    if (GameProgress.Instance != null)
     {
-        if (GameProgress.Instance == null)
-        {
-            Debug.LogError("GameProgress not found!");
-            return;
-        }
-
-        // Save progress
         switch (gemType)
         {
             case GemType.Water:
@@ -29,19 +24,29 @@ public class GemPickup : MonoBehaviour
                 GameProgress.Instance.fireStone = true;
                 break;
         }
+    }
 
-        // Hide gem
-        gameObject.SetActive(false);
+    // Hide gem
+    gameObject.SetActive(false);
 
-        // Find and show return UI
-        GameObject returnPanel = GameObject.Find("ReturnPanel");
-        if (returnPanel != null)
+    // Show return panel
+    Canvas canvas = FindObjectOfType<Canvas>();
+    if (canvas != null)
+    {
+        Transform panel = canvas.transform.Find("ReturnPanel");
+        if (panel != null)
         {
-            returnPanel.SetActive(true);
+            panel.gameObject.SetActive(true);
         }
         else
         {
-            Debug.LogError("ReturnPanel not found in scene!");
+            Debug.LogError("ReturnPanel not found under Canvas!");
         }
     }
+    else
+    {
+        Debug.LogError("No Canvas found in scene!");
+    }
+}
+
 }
