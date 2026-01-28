@@ -313,7 +313,6 @@ GameObject:
   - component: {fileID: 247461118}
   - component: {fileID: 247461117}
   - component: {fileID: 247461116}
-  - component: {fileID: 247461120}
   m_Layer: 0
   m_Name: whirlwind_3
   m_TagString: Untagged
@@ -463,19 +462,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &247461120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 247461115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20ecd2bfc3a8fe4429a45a3517844133, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  tornadoManager: {fileID: 0}
 --- !u!1 &534629019
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +471,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 534629020}
-  - component: {fileID: 534629021}
   m_Layer: 0
   m_Name: TornadoManager
   m_TagString: Untagged
@@ -508,23 +493,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &534629021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534629019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f43dbf86bde7474396fa3b1567cfac7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  whirlwind: {fileID: 247461115}
-  missText: {fileID: 0}
-  minSpawnDelay: 1.5
-  maxSpawnDelay: 3.5
-  visibleTime: 2.5
 --- !u!1 &594172185
 GameObject:
   m_ObjectHideFlags: 0
