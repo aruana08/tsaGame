@@ -6363,7 +6363,7 @@ MonoBehaviour:
   emeraldPrefab: {fileID: 2895699071123447814, guid: 1b7c7e002bea796428fc82863f38b620, type: 3}
   emeraldSpawnPoint: {fileID: 1232131807}
   messageText: {fileID: 974905518}
-  maxRounds: 1
+  maxRounds: 3
 --- !u!1 &1785892796
 GameObject:
   m_ObjectHideFlags: 0
