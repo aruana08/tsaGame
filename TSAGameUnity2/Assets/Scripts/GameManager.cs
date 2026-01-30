@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverUI;   // GAME OVER
     public GameObject winUI;        // YOU WIN
 
+    public Button returnBtn;
     private bool gameEnded = false;
 
     void Awake()
@@ -26,6 +28,12 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f;
         gameOverUI.SetActive(true);
+
+        // disable button here if you want
+        if (returnBtn != null)
+            returnBtn.interactable = false;
+
+        ReturnToMap();
     }
 
     // 🏆 Player collected ruby
@@ -34,7 +42,6 @@ public class GameManager : MonoBehaviour
         if (gameEnded) return;
         gameEnded = true;
 
-        // Freeze player only
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
         if (player != null)
         {
@@ -42,6 +49,13 @@ public class GameManager : MonoBehaviour
         }
 
         winUI.SetActive(true);
+    }
+
+    // 🔁 Button function
+    public void ReturnToMap()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("03_MainMap");
     }
 
     public void Restart()
