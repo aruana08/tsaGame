@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         ReturnToMap();
     }
 
-    // 🏆 Player collected ruby
+    // 🏆 Player collected ruby (WIN)
     public void WinGame()
     {
         if (gameEnded) return;
@@ -49,6 +49,13 @@ public class GameManager : MonoBehaviour
         }
 
         winUI.SetActive(true);
+
+        // ✅ SAVE TO MAIN GAME PROGRESS (FIRE STONE)
+        if (GameProgress.Instance != null && !GameProgress.Instance.FireStone)
+        {
+            GameProgress.Instance.FireStone = true;
+            Debug.Log("Fire Stone unlocked!");
+        }
     }
 
     // 🔁 Button function

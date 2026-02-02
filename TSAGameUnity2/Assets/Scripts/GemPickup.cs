@@ -12,16 +12,16 @@ public class GemPickup : MonoBehaviour
         switch (gemType)
         {
             case GemType.Water:
-                GameProgress.Instance.waterStone = true;
+                GameProgress.Instance.WaterStone = true;
                 break;
             case GemType.Forest:
-                GameProgress.Instance.forestStone = true;
+                GameProgress.Instance.ForestStone = true;
                 break;
             case GemType.Air:
-                GameProgress.Instance.airStone = true;
+                GameProgress.Instance.AirStone = true;
                 break;
             case GemType.Fire:
-                GameProgress.Instance.fireStone = true;
+                GameProgress.Instance.FireStone = true;
                 break;
         }
     }

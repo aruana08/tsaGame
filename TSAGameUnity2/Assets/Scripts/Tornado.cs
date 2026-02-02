@@ -7,29 +7,39 @@ public class Tornado : MonoBehaviour
     [Header("References")]
     public GameObject whirlwind;
     public TMP_Text missText;
+    public TMP_Text winText;
 
-    [Header("Timing")]
-    public float minSpawnDelay = 1.5f;
-    public float maxSpawnDelay = 3.5f;
-    public float visibleTime = 2.5f;
+    [Header("Timing (Easy Mode)")]
+    public float minSpawnDelay = 2.5f;
+    public float maxSpawnDelay = 4f;
+    public float visibleTime = 3.5f;
 
     [Header("Spawn Area Padding")]
     public float paddingX = 0.5f;
     public float paddingY = 0.5f;
 
+    [Header("Win Settings")]
+    public int hitsToWin = 5;   // EASY WIN
+
     private int missCount = 0;
+    private int hitCount = 0;
     private bool clicked = false;
+    private bool gameWon = false;
 
     void Start()
     {
         whirlwind.SetActive(false);
         UpdateMissText();
+
+        if (winText != null)
+            winText.gameObject.SetActive(false);
+
         StartCoroutine(SpawnRoutine());
     }
 
     IEnumerator SpawnRoutine()
     {
-        while (true)
+        while (!gameWon)
         {
             float wait = Random.Range(minSpawnDelay, maxSpawnDelay);
             yield return new WaitForSeconds(wait);
@@ -73,14 +83,45 @@ public class Tornado : MonoBehaviour
 
     void UpdateMissText()
     {
-        missText.text = "Misses: " + missCount;
+        if (missText != null)
+            missText.text = "Misses: " + missCount + " | Hits: " + hitCount + "/" + hitsToWin;
     }
 
     // Called when tornado is clicked
     public void OnTornadoClicked()
     {
+        if (gameWon) return;
+
         clicked = true;
+        hitCount++;
         whirlwind.SetActive(false);
+        UpdateMissText();
+
+        if (hitCount >= hitsToWin)
+        {
+            WinGame();
+        }
+    }
+
+    void WinGame()
+    {
+        gameWon = true;
+        StopAllCoroutines();
+        whirlwind.SetActive(false);
+
+        if (winText != null)
+        {
+            winText.gameObject.SetActive(true);
+            winText.text = "PUZZLE COMPLETE!";
+        }
+
+        Debug.Log("AIR PUZZLE COMPLETE!");
+
+        // ✅ SAVE TO MAIN GAME PROGRESS
+        if (GameProgress.Instance != null && !GameProgress.Instance.AirStone)
+        {
+            GameProgress.Instance.AirStone = true;
+            Debug.Log("Air Stone unlocked!");
+        }
     }
 }
-

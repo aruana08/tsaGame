@@ -147,20 +147,26 @@ public class PuzzleManager : MonoBehaviour
     }
 
     void PuzzleSolved()
-    {
-        puzzleSolved = true;
-        Debug.Log("PUZZLE SOLVED!");
+{
+    puzzleSolved = true;
+    Debug.Log("PUZZLE SOLVED!");
 
-        
-        if (solvedText != null)
-            solvedText.SetActive(true);
+    if (solvedText != null)
+        solvedText.SetActive(true);
 
-
-    GameObject gem = Instantiate(
+    // Spawn gem
+    Instantiate(
         sapphirePrefab,
         new Vector3(6f, 1f, 0f),
         Quaternion.identity
-        );
+    );
 
+    // ✅ SAVE TO MAIN GAME PROGRESS
+    if (GameProgress.Instance != null)
+    {
+        GameProgress.Instance.FireStone = true;
+        Debug.Log("Fire Stone unlocked!");
     }
+}
+
 }

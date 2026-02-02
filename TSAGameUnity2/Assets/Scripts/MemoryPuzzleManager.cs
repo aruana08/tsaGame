@@ -135,6 +135,13 @@ public class MemoryPuzzleManager : MonoBehaviour
         }
 
         SpawnForestStone();
+
+        // ✅ SAVE TO MAIN GAME PROGRESS
+        if (GameProgress.Instance != null && !GameProgress.Instance.ForestStone)
+        {
+            GameProgress.Instance.ForestStone = true;
+            Debug.Log("Forest Stone unlocked!");
+        }
     }
 
     void SpawnForestStone()
@@ -142,7 +149,11 @@ public class MemoryPuzzleManager : MonoBehaviour
         if (emeraldPrefab == null || emeraldSpawnPoint == null)
             return;
 
-        GameObject forestStone = Instantiate(emeraldPrefab, emeraldSpawnPoint.position, Quaternion.identity);
+        GameObject forestStone = Instantiate(
+            emeraldPrefab,
+            emeraldSpawnPoint.position,
+            Quaternion.identity
+        );
 
         // Add GemPickup script if not already on prefab
         GemPickup gem = forestStone.GetComponent<GemPickup>();

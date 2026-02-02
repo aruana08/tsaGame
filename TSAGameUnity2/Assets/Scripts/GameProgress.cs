@@ -1,24 +1,25 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameProgress : MonoBehaviour
 {
     public static GameProgress Instance;
 
-    public bool waterStone;
-    public bool forestStone;
-    public bool airStone;
-    public bool fireStone;
-    //public bool memoryStone; // tracks Memory Puzzle emerald
+    public bool WaterStone;
+    public bool ForestStone;
+    public bool AirStone;
+    public bool FireStone;
 
+    public int emeraldsCollected;
 
-    public int emeraldsCollected = 0; // new
+    private bool level5Loaded = false; // prevents multiple loads
 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // persists between scenes
         }
         else
         {
@@ -26,9 +27,26 @@ public class GameProgress : MonoBehaviour
         }
     }
 
-    public void AddEmerald()
+    void Update()
     {
-        emeraldsCollected++;
-        Debug.Log("Emerald collected! Total: " + emeraldsCollected);
+        CheckFinalUnlock();
+    }
+
+    void CheckFinalUnlock()
+    {
+        if (level5Loaded) return;
+
+        if (WaterStone && ForestStone && AirStone && FireStone)
+        {
+            level5Loaded = true;
+            Debug.Log("ALL STONES COLLECTED — LOADING 08_Level5");
+            SceneManager.LoadScene("08_Level5");
+        }
+    }
+
+    // Optional helper
+    public bool AllStonesCollected()
+    {
+        return WaterStone && ForestStone && AirStone && FireStone;
     }
 }
