@@ -6,8 +6,6 @@ public class PuzzleManager : MonoBehaviour
     public GameObject tilePrefab;
     public Sprite[] tileSprites;
     public GameObject sapphirePrefab;
-
-    
     public GameObject solvedText;
 
     public int width = 4;
@@ -87,12 +85,19 @@ public class PuzzleManager : MonoBehaviour
         tile.currentPos = emptySlot;
         emptySlot = oldPos;
 
-        StartCoroutine(Slide(tile));
+        // 🔑 FIX: Do not animate while shuffling
+        if (isShuffling)
+        {
+            tile.transform.position =
+                GridToWorld(tile.currentPos.x, tile.currentPos.y);
+        }
+        else
+        {
+            StartCoroutine(Slide(tile));
+        }
 
         if (!isShuffling && !puzzleSolved && IsSolved())
-        {
             PuzzleSolved();
-        }
     }
 
     System.Collections.IEnumerator Slide(PuzzleTile tile)
@@ -120,7 +125,8 @@ public class PuzzleManager : MonoBehaviour
     {
         isShuffling = true;
 
-        Vector2Int[] directions = {
+        Vector2Int[] directions =
+        {
             Vector2Int.up,
             Vector2Int.down,
             Vector2Int.left,
@@ -129,8 +135,7 @@ public class PuzzleManager : MonoBehaviour
 
         for (int i = 0; i < moves; i++)
         {
-            Vector2Int dir = directions[Random.Range(0, directions.Length)];
-            TryMove(dir);
+            TryMove(directions[Random.Range(0, directions.Length)]);
         }
 
         isShuffling = false;
@@ -147,26 +152,23 @@ public class PuzzleManager : MonoBehaviour
     }
 
     void PuzzleSolved()
-{
-    puzzleSolved = true;
-    Debug.Log("PUZZLE SOLVED!");
-
-    if (solvedText != null)
-        solvedText.SetActive(true);
-
-    // Spawn gem
-    Instantiate(
-        sapphirePrefab,
-        new Vector3(6f, 1f, 0f),
-        Quaternion.identity
-    );
-
-    // ✅ SAVE TO MAIN GAME PROGRESS
-    if (GameProgress.Instance != null)
     {
-        GameProgress.Instance.FireStone = true;
-        Debug.Log("Fire Stone unlocked!");
-    }
-}
+        puzzleSolved = true;
+        Debug.Log("PUZZLE SOLVED!");
 
+        if (solvedText != null)
+            solvedText.SetActive(true);
+
+        Instantiate(
+            sapphirePrefab,
+            new Vector3(6f, 1f, 0f),
+            Quaternion.identity
+        );
+
+        if (GameProgress.Instance != null)
+        {
+            GameProgress.Instance.FireStone = true;
+            Debug.Log("Fire Stone unlocked!");
+        }
+    }
 }
