@@ -7,18 +7,19 @@ public class Level5Manager : MonoBehaviour
     public Transform playerSpawnPoint;
     public GameObject pathArea;
     public GameObject gateArea;
+    public GameObject battleArea;
     public FadeTransition fadeTransition;
     public float delayBeforeFade = 0.3f;
+    public float gateDisplayTime = 2f;
 
     void Start()
     {
-        // Spawn player at starting position
         player.transform.position = playerSpawnPoint.position;
         player.SetActive(true);
         
-        // Make sure correct areas are active
         pathArea.SetActive(true);
         gateArea.SetActive(false);
+        battleArea.SetActive(false);
     }
 
     public void OnBridgeEndReached()
@@ -35,18 +36,33 @@ public class Level5Manager : MonoBehaviour
             playerMovement.enabled = false;
         }
         
-        // Small delay
         yield return new WaitForSeconds(delayBeforeFade);
         
         // Fade to black
         yield return StartCoroutine(fadeTransition.FadeToBlack());
         
-        // Hide player
         player.SetActive(false);
-        
-        // Switch backgrounds
         pathArea.SetActive(false);
         gateArea.SetActive(true);
+        
+        // Fade from black
+        yield return StartCoroutine(fadeTransition.FadeFromBlack());
+        
+        // Wait at gate for 2 seconds
+        yield return new WaitForSeconds(gateDisplayTime);
+        
+        // Transition to battle
+        StartCoroutine(TransitionToBattleArea());
+    }
+    
+    private IEnumerator TransitionToBattleArea()
+    {
+        // Fade to black
+        yield return StartCoroutine(fadeTransition.FadeToBlack());
+        
+        // Switch to battle area
+        gateArea.SetActive(false);
+        battleArea.SetActive(true);
         
         // Fade from black
         yield return StartCoroutine(fadeTransition.FadeFromBlack());
