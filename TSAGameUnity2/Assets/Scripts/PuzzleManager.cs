@@ -1,13 +1,23 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class PuzzleManager : MonoBehaviour
 {
+    [Header("Puzzle Setup")]
     public GameObject tilePrefab;
     public Sprite[] tileSprites;
-    public GameObject sapphirePrefab;
+
+    [Header("Rewards & UI")]
+    public GameObject sapphirePrefab;   // Water stone
     public GameObject solvedText;
 
+    [Header("Scene Transition")]
+    public string sceneToLoad;          // Set to "waterLevelCompleted" in Inspector
+
+    [Header("Grid Settings")]
     public int width = 4;
     public int height = 3;
     public float tileSize = 1f;
@@ -85,11 +95,9 @@ public class PuzzleManager : MonoBehaviour
         tile.currentPos = emptySlot;
         emptySlot = oldPos;
 
-        // 🔑 FIX: Do not animate while shuffling
         if (isShuffling)
         {
-            tile.transform.position =
-                GridToWorld(tile.currentPos.x, tile.currentPos.y);
+            tile.transform.position = GridToWorld(tile.currentPos.x, tile.currentPos.y);
         }
         else
         {
@@ -100,7 +108,7 @@ public class PuzzleManager : MonoBehaviour
             PuzzleSolved();
     }
 
-    System.Collections.IEnumerator Slide(PuzzleTile tile)
+    IEnumerator Slide(PuzzleTile tile)
     {
         Vector3 start = tile.transform.position;
         Vector3 end = GridToWorld(tile.currentPos.x, tile.currentPos.y);
@@ -156,19 +164,42 @@ public class PuzzleManager : MonoBehaviour
         puzzleSolved = true;
         Debug.Log("PUZZLE SOLVED!");
 
+        // Show solved UI
         if (solvedText != null)
             solvedText.SetActive(true);
 
-        Instantiate(
-            sapphirePrefab,
-            new Vector3(6f, 1f, 0f),
-            Quaternion.identity
-        );
-
-        if (GameProgress.Instance != null)
+        // Spawn Water Stone
+        if (sapphirePrefab != null)
         {
-            GameProgress.Instance.FireStone = true;
-            Debug.Log("Fire Stone unlocked!");
+            Instantiate(
+                sapphirePrefab,
+                new Vector3(6f, 1f, 0f),
+                Quaternion.identity
+            );
+        }
+
+        // ✅ SAVE WATER PROGRESS
+        if (GameProgress.Instance != null && !GameProgress.Instance.WaterStone)
+        {
+            GameProgress.Instance.WaterStone = true;
+            Debug.Log("Water Stone unlocked!");
+        }
+
+        // Load next scene
+        StartCoroutine(LoadNextScene());
+    }
+
+    IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (!string.IsNullOrEmpty(sceneToLoad))
+        {
+            SceneManager.LoadScene(sceneToLoad);
+        }
+        else
+        {
+            Debug.LogWarning("No scene assigned for this puzzle!");
         }
     }
 }

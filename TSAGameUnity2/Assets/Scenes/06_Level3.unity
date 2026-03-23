@@ -651,11 +651,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   whirlwind: {fileID: 247461115}
   missText: {fileID: 1125336286}
+  winText: {fileID: 0}
   minSpawnDelay: 1.5
   maxSpawnDelay: 3.5
   visibleTime: 2.5
   paddingX: 0.5
   paddingY: 0.5
+  hitsToWin: 5
 --- !u!1 &594172185
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,7 +687,7 @@ RectTransform:
   m_GameObject: {fileID: 594172185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1659519278}
@@ -1269,8 +1271,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1425,8 +1427,8 @@ Transform:
   m_GameObject: {fileID: 1981776845}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0376, y: 1.0834, z: 0}
-  m_LocalScale: {x: 2.267322, y: 2.5156462, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
