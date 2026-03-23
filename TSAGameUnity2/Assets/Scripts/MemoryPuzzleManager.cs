@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement; // ✅ ADD THIS
 
 public class MemoryPuzzleManager : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class MemoryPuzzleManager : MonoBehaviour
     public Animator monkeyAnimator;
 
     [Header("Gem & UI")]
-    public GameObject emeraldPrefab;           // Forest Stone prefab
-    public Transform emeraldSpawnPoint;        // Where gem spawns
-    public TextMeshProUGUI messageText;        // Message text for success/fail
+    public GameObject emeraldPrefab;
+    public Transform emeraldSpawnPoint;
+    public TextMeshProUGUI messageText;
 
     [Header("Game Settings")]
     public int maxRounds = 4;
@@ -43,7 +44,6 @@ public class MemoryPuzzleManager : MonoBehaviour
         StartCoroutine(ShowSequence());
     }
 
-    // Add exactly 2 new tiles per round
     void AddTilesForRound()
     {
         for (int i = 0; i < 2; i++)
@@ -136,12 +136,21 @@ public class MemoryPuzzleManager : MonoBehaviour
 
         SpawnForestStone();
 
-        // ✅ SAVE TO MAIN GAME PROGRESS
+        // ✅ SAVE PROGRESS
         if (GameProgress.Instance != null && !GameProgress.Instance.ForestStone)
         {
             GameProgress.Instance.ForestStone = true;
             Debug.Log("Forest Stone unlocked!");
         }
+
+        // ⏱ Show message briefly, then load scene
+        Invoke(nameof(LoadWinScene), 2f);
+    }
+
+    void LoadWinScene()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("forestLevelCompleted");
     }
 
     void SpawnForestStone()
@@ -155,7 +164,6 @@ public class MemoryPuzzleManager : MonoBehaviour
             Quaternion.identity
         );
 
-        // Add GemPickup script if not already on prefab
         GemPickup gem = forestStone.GetComponent<GemPickup>();
         if (gem == null)
             gem = forestStone.AddComponent<GemPickup>();

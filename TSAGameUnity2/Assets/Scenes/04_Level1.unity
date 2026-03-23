@@ -412,6 +412,7 @@ MonoBehaviour:
   - {fileID: 926275030, guid: b49af2dd3f3405040aae6ac1c5f98ff8, type: 3}
   sapphirePrefab: {fileID: 6400531146579605509, guid: 7171117418a6d9849accc8735724255f, type: 3}
   solvedText: {fileID: 405466228}
+  sceneToLoad: waterLevelCompleted
   width: 4
   height: 3
   tileSize: 1.3

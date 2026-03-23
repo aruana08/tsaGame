@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         gameOverUI.SetActive(true);
 
-        // disable button here if you want
         if (returnBtn != null)
             returnBtn.interactable = false;
 
@@ -50,12 +49,21 @@ public class GameManager : MonoBehaviour
 
         winUI.SetActive(true);
 
-        // ✅ SAVE TO MAIN GAME PROGRESS (FIRE STONE)
+        // ✅ SAVE PROGRESS
         if (GameProgress.Instance != null && !GameProgress.Instance.FireStone)
         {
             GameProgress.Instance.FireStone = true;
             Debug.Log("Fire Stone unlocked!");
         }
+
+        // ⏱ Optional delay so player sees win screen
+        Invoke(nameof(LoadWinScene), 2f);
+    }
+
+    void LoadWinScene()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("fireLevelCompleted");
     }
 
     // 🔁 Button function

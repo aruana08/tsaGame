@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement; // ✅ ADD THIS
 
 public class Tornado : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Tornado : MonoBehaviour
     public float paddingY = 0.5f;
 
     [Header("Win Settings")]
-    public int hitsToWin = 5;   // EASY WIN
+    public int hitsToWin = 5;
 
     private int missCount = 0;
     private int hitCount = 0;
@@ -87,7 +88,6 @@ public class Tornado : MonoBehaviour
             missText.text = "Misses: " + missCount + " | Hits: " + hitCount + "/" + hitsToWin;
     }
 
-    // Called when tornado is clicked
     public void OnTornadoClicked()
     {
         if (gameWon) return;
@@ -117,11 +117,20 @@ public class Tornado : MonoBehaviour
 
         Debug.Log("AIR PUZZLE COMPLETE!");
 
-        // ✅ SAVE TO MAIN GAME PROGRESS
+        // ✅ SAVE PROGRESS
         if (GameProgress.Instance != null && !GameProgress.Instance.AirStone)
         {
             GameProgress.Instance.AirStone = true;
             Debug.Log("Air Stone unlocked!");
         }
+
+        // ⏱ Delay then load next scene
+        Invoke(nameof(LoadWinScene), 2f);
+    }
+
+    void LoadWinScene()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("airLevelCompleted");
     }
 }

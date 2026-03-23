@@ -32,6 +32,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/07_Level4.unity
     guid: 2ca2ec0dd936fa948b36f955d70cb744
+  - enabled: 1
+    path: Assets/Scenes/waterLevelCompleted.unity
+    guid: ab5b2e5c0ec2dde4ea4719a0cdfed472
+  - enabled: 1
+    path: Assets/Scenes/fireLevelCompleted.unity
+    guid: 1a5ccb0de7a9deb479e09e088703d177
+  - enabled: 1
+    path: Assets/Scenes/forestLevelCompleted.unity
+    guid: 1ca7b8ade57412f4fbd3068a994ee66f
+  - enabled: 1
+    path: Assets/Scenes/airLevelCompleted.unity
+    guid: ce6be16b7ffbc3148b5ce9d8528386b4
+  - enabled: 1
+    path: Assets/Scenes/endGame.unity
+    guid: 191707b95e1ef0846a22b189ab35c3a5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
