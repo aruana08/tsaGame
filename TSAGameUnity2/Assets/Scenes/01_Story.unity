@@ -348,7 +348,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Controls
+          m_StringArgument: 02_controls
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &126938112
@@ -834,7 +834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   videoPlayer: {fileID: 2023117121}
   skipButton: {fileID: 126938111}
-  nextSceneName: 03_MainMap
+  nextSceneName: 02_controls
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
