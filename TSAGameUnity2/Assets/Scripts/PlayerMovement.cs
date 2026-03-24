@@ -2,10 +2,13 @@
 
 public class PlayerMovement : MonoBehaviour
 {
+
     public float moveSpeed = 6f;
     public float jumpForce = 12f;
 
     public RisingLava lava;   // drag Lava here in Inspector
+
+    public AudioSource walkSound;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -43,6 +46,18 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+
+        float move = Input.GetAxis("Horizontal");
+
+        if (Mathf.Abs(move) > 0.1f)
+        {
+            if (!walkSound.isPlaying)
+                walkSound.Play();
+        }
+        else
+        {
+            walkSound.Stop();
         }
     }
 
@@ -85,3 +100,4 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
+
